@@ -11,6 +11,7 @@ import { reduxForm, formValueSelector  } from 'redux-form';
 import { Validation } from '../utility/validationUtility';
 import { connect } from 'react-redux';
 import { URLS } from "../constants/URL";
+import PokemonView from './PokemonView';
 
 const http = (url, callback) => {
   axios.get(url).then(callback);
@@ -68,20 +69,7 @@ class Confirugation extends React.Component {
             <RaisedButton disabled={this.state.previous == null} onClick={e=>this.componentDidMount(this.state.previous)} label='previous' primary={true} />
             <RaisedButton disabled={this.state.next == null} onClick={e=>this.componentDidMount(this.state.next)} label='next' primary={true} />
             </div>
-            <Table selectable={false}>
-            <TableBody displayRowCheckbox={false}>
-               { pokemonData.list.map( (pokemone, index) => 
-                <TableRow displayBorder={false} key={index}>
-                    <TableRowColumn>{pokemone.name}</TableRowColumn>
-                    <TableRowColumn>
-                      { pokemonData.detail[pokemone.name] ?
-                       <img src={pokemonData.detail[pokemone.name].sprites.back_default} alt={pokemone.name} /> 
-                       : null }
-                    </TableRowColumn>
-                </TableRow>
-               )}
-            </TableBody>            
-         </Table>
+            <PokemonView pokemonData={pokemonData}/>
         </div>
     );
   }

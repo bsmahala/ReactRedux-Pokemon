@@ -7,6 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { login } from '../actions/loginLogoutActions';
 import { removeAll } from '../utility/localStorageUtility';
 import { connect } from 'react-redux';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 
 // logout popmenu
 const PopOverMenu = ({logout=e=>{} }) => <IconMenu
@@ -25,23 +26,29 @@ PopOverMenu.muiName = 'IconMenu';
 class TitleBar extends Component {
 
   render() {
+    const { fav } = this.props;
     return (
     <div>
         <div className="fixedbar">
         <AppBar
           className	="appbar"
-          title='Home'
-          iconElementLeft={<IconButton></IconButton>}
+          title=''
+          iconElementLeft={<div style={{color : '#fff'}}>
+            Fav: {fav.length}
+          </div>}
           iconElementRight={<PopOverMenu logout={e=>{
             removeAll();
             this.props.login();
             this.props.history.replace('/');
           }} />}
-        />
+        >
+            
+          </AppBar>
         </div>
         </div>
     );
   }
 }
 
-export default connect(state=>({ loginData: state.loginData }), { login })(TitleBar);
+export default connect(state => ({ loginData: state.loginData, fav: state.fav }), { login })(TitleBar);
+

@@ -13,3 +13,19 @@ export const pokemonReducer = (state = INIT_STATE, action) => {
             return state;
     }
 };
+
+export const favReducer = (state=[], action) => {
+    switch (action.type) {
+        case 'fav':
+            const favPokemon = [...state];
+            if (favPokemon.indexOf(action.payload) >= 0) {
+                favPokemon.splice(favPokemon.indexOf(action.payload), 1);
+            } else {
+                favPokemon.push(action.payload);
+            }
+            return favPokemon;
+    
+        default:
+            return state;
+    }
+}
